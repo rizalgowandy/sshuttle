@@ -11,10 +11,9 @@ Forward all traffic::
     sshuttle -r username@sshserver 0.0.0.0/0
 
 - Use the :option:`sshuttle -r` parameter to specify a remote server.
-  One some systems, you may also need to use the :option:`sshuttle -x`
-  parameter to exclude sshserver or sshserver:22 so that your local
-  machine can communicate directly to sshserver without it being
-  redirected by sshuttle.
+  The SSH connection endpoint is automatically excluded from forwarding.
+  When `ProxyCommand` is configured, automatic exclusion is skipped;
+  use :option:`sshuttle -x` to exclude the required address manually.
 
 - By default sshuttle will automatically choose a method to use. Override with
   the :option:`sshuttle --method` parameter.
@@ -83,11 +82,11 @@ To print a sudo configuration file and see a suggested way to install it, run::
   sshuttle --sudoers-no-modify
 
 A custom user or group can be set with the 
-:option:`sshuttle --sudoers-no-modify --sudoers-user {user_descriptor}`
+:option:`sshuttle --sudoers-no-modify --sudoers-user {user_descriptor} <sshuttle --sudoers-user>`
 option. Valid values for this vary based on how your system is configured.
-Values such as usernames, groups pre-pended with `%` and sudoers user 
+Values such as usernames, groups prepended with `%` and sudoers user 
 aliases will work. See the sudoers manual for more information on valid
-user specif actions. The option must be used with `--sudoers-no-modify`::
+user-specified actions. The option must be used with `--sudoers-no-modify`::
 
   sshuttle --sudoers-no-modify --sudoers-user mike
   sshuttle --sudoers-no-modify --sudoers-user %sudo
